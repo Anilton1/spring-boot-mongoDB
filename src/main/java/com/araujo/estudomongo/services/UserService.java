@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.araujo.estudomongo.domain.User;
+import com.araujo.estudomongo.dto.UserDTO;
 import com.araujo.estudomongo.repository.UserRepository;
 import com.araujo.estudomongo.services.exception.ObjectNotFoundException;
 
@@ -24,5 +25,12 @@ public class UserService {
 		Optional<User> obj = rep.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 	}
-
+	
+	public User insert(User obj) {
+		return rep.insert(obj);
+	}
+	
+	public User fromDTO(UserDTO objDTO) {
+		return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
+	}
 }
