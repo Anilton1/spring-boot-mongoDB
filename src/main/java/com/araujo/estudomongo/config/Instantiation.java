@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.araujo.estudomongo.domain.Post;
 import com.araujo.estudomongo.domain.User;
+import com.araujo.estudomongo.dto.AuthorDTO;
 import com.araujo.estudomongo.repository.PostRepository;
 import com.araujo.estudomongo.repository.UserRepository;
 
@@ -29,15 +30,13 @@ public class Instantiation implements CommandLineRunner{
 		
 		User maria = new User(null, "Maria Brown", "maria@gmail.com");
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
-		User bob = new User(null, "Bob Grey", "bob@gmail.com");
-		
-		Post post1 = new Post(null,sdf.parse("21/03/2021"), "Partiu viagem", "Viajando para Paraíba.", maria);
-		Post post2 = new Post(null,sdf.parse("23/03/2021"), "Bom dia", "BD", maria);
-		
-		repPost.deleteAll();
+		User bob = new User(null, "Bob Grey", "bob@gmail.com");		
 		repUser.deleteAll();
-		
 		repUser.saveAll(Arrays.asList(maria, alex, bob));
+		
+		Post post1 = new Post(null,sdf.parse("21/03/2021"), "Partiu viagem", "Viajando para Paraíba.", new AuthorDTO(maria));
+		Post post2 = new Post(null,sdf.parse("23/03/2021"), "Bom dia", "BD", new AuthorDTO(maria));		
+		repPost.deleteAll();
 		repPost.saveAll(Arrays.asList(post1, post2));
 	}
 
